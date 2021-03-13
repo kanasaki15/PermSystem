@@ -39,8 +39,9 @@ public class PermListener implements Listener {
             }
 
             String perm = "";
+
             try {
-                PreparedStatement statement = con.prepareStatement("SELECT * FROM MinecraftUserList WHERE MinecraftUserID = ?");
+                PreparedStatement statement = con.prepareStatement("SELECT * FROM MinecraftUserList WHERE MinecraftUUID = ?");
                 statement.setString(1, e.getPlayer().getUniqueId().toString());
                 ResultSet set = statement.executeQuery();
                 if (set.next()){
@@ -53,12 +54,18 @@ public class PermListener implements Listener {
                 plugin.getPluginLoader().disablePlugin(plugin);
             }
 
-            RegisteredServiceProvider<LuckPerms> provider = Bukkit.getServicesManager().getRegistration(LuckPerms.class);
-            if (provider != null) {
-                LuckPerms api = provider.getProvider();
+            if (Bukkit.getServer().getPluginManager().getPlugin("LuckPerms") != null){
+                try {
+                    RegisteredServiceProvider<LuckPerms> provider = Bukkit.getServicesManager().getRegistration(LuckPerms.class);
+                    if (provider != null) {
+                        LuckPerms api = provider.getProvider();
 
-                api.getUserManager().getUser(e.getPlayer().getUniqueId()).setPrimaryGroup(perm);
-                return;
+                        api.getUserManager().getUser(e.getPlayer().getUniqueId()).setPrimaryGroup(perm);
+                        return;
+                    }
+                } catch (Exception ex){
+                    //ex.printStackTrace();
+                }
             }
 
             int permLevel = -1;
