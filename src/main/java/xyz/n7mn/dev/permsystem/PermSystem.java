@@ -8,6 +8,7 @@ public final class PermSystem extends JavaPlugin {
     public void onEnable() {
         // Plugin startup logic
 
+        
     }
 
     @Override

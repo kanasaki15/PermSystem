@@ -3,3 +3,4 @@ version: @version@
 main: xyz.n7mn.dev.permsystem.PermSystem
 authors: [ 7mi_chan ]
 description: for 1.12.2
+softdepend: [LuckPerms]
