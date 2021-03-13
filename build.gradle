@@ -25,6 +25,8 @@ repositories {
 dependencies {
     compileOnly 'com.destroystokyo.paper:paper-api:1.12-R0.1-SNAPSHOT'
     compile 'mysql:mysql-connector-java:8.0.23'
+
+    compileOnly 'net.luckperms:api:5.3'
 }
 
 processResources {
