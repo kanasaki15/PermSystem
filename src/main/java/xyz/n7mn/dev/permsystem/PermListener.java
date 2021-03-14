@@ -1,8 +1,6 @@
 package xyz.n7mn.dev.permsystem;
 
 import net.luckperms.api.LuckPerms;
-import net.luckperms.api.model.data.DataType;
-import net.luckperms.api.model.group.Group;
 import net.luckperms.api.model.user.User;
 import net.luckperms.api.node.Node;
 import org.bukkit.Bukkit;
@@ -15,9 +13,8 @@ import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.RegisteredServiceProvider;
 
 import java.sql.*;
-import java.util.concurrent.CompletableFuture;
 
-public class PermListener implements Listener {
+class PermListener implements Listener {
 
     private final Plugin plugin;
     private Connection con;
