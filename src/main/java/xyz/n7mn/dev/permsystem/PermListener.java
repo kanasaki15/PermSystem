@@ -1,7 +1,12 @@
 package xyz.n7mn.dev.permsystem;
 
 import net.luckperms.api.LuckPerms;
+import net.luckperms.api.model.data.DataType;
+import net.luckperms.api.model.group.Group;
+import net.luckperms.api.model.user.User;
+import net.luckperms.api.node.Node;
 import org.bukkit.Bukkit;
+import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
@@ -10,6 +15,7 @@ import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.RegisteredServiceProvider;
 
 import java.sql.*;
+import java.util.concurrent.CompletableFuture;
 
 public class PermListener implements Listener {
 
@@ -60,11 +66,16 @@ public class PermListener implements Listener {
                     if (provider != null) {
                         LuckPerms api = provider.getProvider();
 
-                        api.getUserManager().getUser(e.getPlayer().getUniqueId()).setPrimaryGroup(perm);
+                        User user = api.getPlayerAdapter(Player.class).getUser(e.getPlayer());
+
+                        user.data().clear();
+                        user.data().add(Node.builder("group."+perm).build());
+
+                        api.getUserManager().saveUser(user);
                         return;
                     }
                 } catch (Exception ex){
-                    //ex.printStackTrace();
+                    ex.printStackTrace();
                 }
             }
 
