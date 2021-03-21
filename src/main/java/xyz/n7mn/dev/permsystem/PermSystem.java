@@ -22,12 +22,10 @@ public final class PermSystem extends JavaPlugin {
         LuckPerms api = null;
         Plugin[] plugins = getServer().getPluginManager().getPlugins();
         for (Plugin plugin : plugins){
-            System.out.println(plugin.getName());
             if (!plugin.getName().equals("LuckPerms")){
                 continue;
             }
 
-            System.out.println("？");
             try {
                 RegisteredServiceProvider<LuckPerms> provider = Bukkit.getServicesManager().getRegistration(LuckPerms.class);
                 if (provider != null) {
@@ -47,7 +45,7 @@ public final class PermSystem extends JavaPlugin {
             getPluginLoader().disablePlugin(this);
         }
 
-        getServer().getPluginManager().registerEvents(new PermListener(this, con), this);
+        getServer().getPluginManager().registerEvents(new PermListener(this, con, api), this);
     }
 
     @Override
