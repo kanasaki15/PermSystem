@@ -7,8 +7,10 @@ import org.bukkit.plugin.RegisteredServiceProvider;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.sql.Connection;
+import java.sql.Driver;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+import java.util.Enumeration;
 
 public final class PermSystem extends JavaPlugin {
 
@@ -37,7 +39,21 @@ public final class PermSystem extends JavaPlugin {
         }
 
         try {
-            DriverManager.registerDriver(new com.mysql.cj.jdbc.Driver());
+
+            boolean newLoad = false;
+            Enumeration<Driver> drivers = DriverManager.getDrivers();
+            while (drivers.hasMoreElements()){
+                Driver driver = drivers.nextElement();
+
+                if (driver.equals(new com.mysql.cj.jdbc.Driver())){
+                    newLoad = true;
+                    break;
+                }
+            }
+
+            if (newLoad){
+                DriverManager.registerDriver(new com.mysql.cj.jdbc.Driver());
+            }
             con = DriverManager.getConnection("jdbc:mysql://" + getConfig().getString("mysqlServer") + ":" + getConfig().getInt("mysqlPort") + "/" + getConfig().getString("mysqlDatabase") + getConfig().getString("mysqlOption"), getConfig().getString("mysqlUsername"), getConfig().getString("mysqlPassword"));
             con.setAutoCommit(true);
         } catch (SQLException e) {
