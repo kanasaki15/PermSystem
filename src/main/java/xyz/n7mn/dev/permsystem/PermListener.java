@@ -49,6 +49,7 @@ class PermListener implements Listener {
 
         String perm = "";
         int userLevel = 0;
+        int permLevel = plugin.getConfig().getInt("isOpPermLevel");
 
         try {
             PreparedStatement statement = con.prepareStatement("" +
@@ -80,24 +81,6 @@ class PermListener implements Listener {
             }
         } catch (Exception ex){
             ex.printStackTrace();
-        }
-
-        int permLevel = -1;
-
-        if (plugin.getConfig().getString("isOp").equals("admin")){
-            permLevel = 5;
-        }
-        if (plugin.getConfig().getString("isOp").equals("moderator")){
-            permLevel = 4;
-        }
-        if (plugin.getConfig().getString("isOp").equals("developer")){
-            permLevel = 3;
-        }
-        if (plugin.getConfig().getString("isOp").equals("mapper")){
-            permLevel = 2;
-        }
-        if (plugin.getConfig().getString("isOp").equals("Authenticated")){
-            permLevel = 1;
         }
 
         e.getPlayer().setOp(permLevel <= userLevel);

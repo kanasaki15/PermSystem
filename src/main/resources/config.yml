@@ -6,5 +6,5 @@ mysqlDatabase: ''
 mysqlOption: '?allowPublicKeyRetrieval=true&useSSL=false'
 
 # LuckPerms非導入環境のみ
-isOp: 'admin'
+isOpPermLevel: 10
 
